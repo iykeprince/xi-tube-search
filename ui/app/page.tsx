@@ -12,7 +12,6 @@ export default function Home() {
 
   const [chats, setChats] = useState<Chat[]>([]);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const [selectedSuggestion, setSelectedSuggestion] = useState<Suggestion>({ id: "", title: "", image: "", description: "" });
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +22,6 @@ export default function Home() {
   }, [chats]);
 
   const handleSuggestionSelect = (selectedSuggestion: Suggestion) => {
-    setSelectedSuggestion(selectedSuggestion);
     setSuggestions([]);
     setChats([
       {
@@ -47,8 +45,13 @@ export default function Home() {
   };
 
   const handleSearch = (query: string) => {
-    const obj = { id: (chats.length + 1).toString(), message: query, isAI: false, type: "query" as "query" }
-    setChats([obj, ...chats]);
+    const obj = {
+      id: (chats.length + 1).toString(),
+      message: query,
+      isAI: false,
+      type: "query" as const
+    };
+    setChats([...chats, obj]);
     setLoading(true);
     setTimeout(() => {
       // TODO: Add search logic
@@ -78,9 +81,6 @@ export default function Home() {
         {chats.map((item) => <ChatList
           key={item.id}
           chat={item}
-          handleSuggestionSelect={handleSuggestionSelect}
-          suggestions={suggestions}
-          selectedSuggestion={selectedSuggestion}
         />)}
 
       </div>
