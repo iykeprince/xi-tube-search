@@ -1,0 +1,6 @@
+fastapi
+dotenv
+serpapi
+google-api-python-client
+youtube_transcript_api
+uvicorn
