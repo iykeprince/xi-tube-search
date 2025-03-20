@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .api.v1.endpoints import video
 from dotenv import load_dotenv
 
