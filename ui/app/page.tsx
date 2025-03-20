@@ -6,7 +6,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import SuggestedResults from "../components/SuggestedResults";
 import ChatList from "../components/ChatList";
 import { Chat, Suggestion } from "../types/types";
-import { getSuggestions } from "@/services/suggestion";
+import { getSuggestions, getSummary, getTranscipt } from "@/services/suggestion";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -23,9 +23,10 @@ export default function Home() {
   }, [chats]);
 
   const handleSuggestionSelect = async (selectedSuggestion: Suggestion) => {
+    setLoading(true)
     // Clear suggestions immediately
     setSuggestions([]);
-  
+
     // Add the selected suggestion to the beginning of the chat
     const newSuggestionChat: Chat = {
       id: (chats.length + 1).toString(),
@@ -33,19 +34,22 @@ export default function Home() {
       isAI: true,
       type: "suggestion",
     };
-  
+
     setChats(prevChats => [newSuggestionChat, ...prevChats]);
-  
-    // Simulate AI response after a delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
+    const transcript = await getTranscipt(selectedSuggestion.videoId)
+    console.log('transcript', transcript)
+    const summary = await getSummary(transcript)
+    console.log('summary', summary)
+    setLoading(false)
+
     const aiResponseChat: Chat = {
       id: (chats.length + 2).toString(),
-      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+      message: summary,
       isAI: true,
       type: "query",
     };
-  
+
     setChats(prevChats => [aiResponseChat, ...prevChats]);
   };
   console.log('chats', chats)
@@ -63,22 +67,29 @@ export default function Home() {
     // TODO: Add search logic
     console.log(`Searching for ${query}`);
     try {
-      // const suggestions = await getSuggestions(query)
-      const suggestions: any[] = []
-      console.log('suggestions returned', suggestions)
+      const result: { video_links: any[] } = await getSuggestions(query)
 
-      const formattedSuggestions = (suggestions as any[]).map((suggestion, idx) => ({
-        id: (++idx).toString(),
-        title: suggestion.title,
-        description: suggestion?.description ?? "",
-        image: suggestion?.thumbnail?.static ?? "",
-      }))
+      const suggestions = result.video_links
+
+
+      const formattedSuggestions = (suggestions as any[]).map((suggestion, idx) => {
+        const link = suggestion.link;
+        // extract video id from link "https://www.youtube.com/watch?v=v4VxEpsHJVU"
+        const videoId = new URL(link).searchParams.get('v');
+        console.log('videoId', videoId)
+        return {
+          id: (++idx).toString(),
+          title: suggestion.title,
+          description: suggestion?.description ?? "",
+          image: suggestion?.thumbnail?.static ?? "",
+          link: suggestion.link,
+          videoId,
+        } as Suggestion
+      })
       // populate suggestion base on query
+      console.log('suggestions returned', formattedSuggestions)
       setSuggestions([
         ...formattedSuggestions,
-        { id: '200', title: "We are here", description: 'some detail summary of something', image: "https://picsum.photos/400" },
-        { id: '220', title: "We are here", description: 'some detail summary of something', image: "https://picsum.photos/400" },
-        { id: '230', title: "We are here", description: 'some detail summary of something', image: "https://picsum.photos/400" }
       ]);
     } catch (error) {
 

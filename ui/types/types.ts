@@ -3,6 +3,8 @@ export type Suggestion = {
     title: string;
     image: string;
     description: string;
+    link: string;
+    videoId: string;
 };
 
 export type Chat = {

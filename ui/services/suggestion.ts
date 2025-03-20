@@ -6,7 +6,12 @@ export const getSuggestions = async (query: string) => {
     return result.data;
 }
 
-export const getSummary = async (videoId: string) => {
+export const getTranscipt = async (videoId: string) => {
     const result = await axiosClient.get(`/api/v1/transcript?video_id=${videoId}`)
+    return result.data;
+}
+
+export const getSummary = async (transcript: string) => {
+    const result = await axiosClient.post(`/api/v1/summary`, { transcript })
     return result.data;
 }

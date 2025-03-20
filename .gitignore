@@ -1,3 +1,11 @@
 .env
 venv
 *.ipynb
+
+./ui/node_modules
+./ui/dist
+./ui/build
+./ui/public/build
+./ui/public/build
+./ui/public/build
+./ui/public/build
