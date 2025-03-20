@@ -33,26 +33,37 @@ export default function Home() {
       message: selectedSuggestion.title,
       isAI: true,
       type: "suggestion",
+      image: selectedSuggestion.image,
+      title: selectedSuggestion.title,
     };
 
     setChats(prevChats => [newSuggestionChat, ...prevChats]);
 
-    const transcript = await getTranscipt(selectedSuggestion.videoId)
-    console.log('transcript', transcript)
-    const summary = await getSummary(transcript)
-    console.log('summary', summary)
-    setLoading(false)
 
-    const aiResponseChat: Chat = {
-      id: (chats.length + 2).toString(),
-      message: summary,
-      isAI: true,
-      type: "query",
-    };
+    try {
 
-    setChats(prevChats => [aiResponseChat, ...prevChats]);
+      const { transcript } = await getTranscipt(selectedSuggestion.videoId)
+      console.log('transcript', transcript)
+      const summary = await getSummary(transcript)
+      console.log('summary', summary)
+      setLoading(false)
+
+      const aiResponseChat: Chat = {
+        id: (chats.length + 2).toString(),
+        message: summary,
+        isAI: true,
+        type: "query",
+      };
+
+      setChats(prevChats => [aiResponseChat, ...prevChats]);
+    } catch (error) {
+      console.error('Error fetching transcript or summary:', error);
+      setChats(prevChats => [...prevChats]);
+    } finally {
+      setLoading(false)
+    }
   };
-  console.log('chats', chats)
+
 
   const handleSearch = async (query: string) => {
     const obj = {
@@ -61,7 +72,7 @@ export default function Home() {
       isAI: false,
       type: "query" as const
     };
-    setChats([...chats, obj]);
+    setChats([obj, ...chats]);
 
     setLoading(true);
     // TODO: Add search logic

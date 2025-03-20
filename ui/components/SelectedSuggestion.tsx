@@ -6,7 +6,7 @@ export default function SelectedSuggestion({ chat }: { chat: Chat }) {
         <div className="border p-4 rounded-lg mb-4">
             <div className="flex items-center mb-2">
                 <div className="bg-gray-400 h-16 w-16 mr-4 rounded">
-                    <Image src={chat?.image ?? ""} alt={chat?.title ?? ""} className="w-full h-full object-cover rounded" width={64} height={64} />
+                    <img src={chat?.image ?? ""} alt={chat?.title ?? ""} className="object-cover rounded h-16 w-16" />
                 </div>
                 <div>
                     <p className="font-bold text-black">{chat.title}</p>
