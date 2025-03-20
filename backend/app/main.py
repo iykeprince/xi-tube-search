@@ -23,3 +23,8 @@ app.add_middleware(
 )
 
 app.include_router(video.router, prefix="/api/v1", tags=["video"])
+
+@app.get("/")
+async def root():
+    """Health check endpoint"""
+    return {"status": "online", "message": "YouTube Video Analyzer API is running"}
