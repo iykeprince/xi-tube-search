@@ -16,7 +16,9 @@ export default function SuggestedResults({ onSelect, suggestions }: SuggestedRes
                         className="bg-gray-200 p-4 rounded-lg cursor-pointer"
                         onClick={() => onSelect(item)}
                     >
-                        <div className="bg-gray-400 h-32 mb-2"></div>
+                        <img src={item.image} width="120px" height="120px" className="bg-gray-400 mb-2" alt={item.title} />
+
+
                         <p className="text-sm text-black">{item.title}</p>
                     </div>
                 ))}

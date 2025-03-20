@@ -10,4 +10,6 @@ export type Chat = {
     message: string;
     isAI: boolean;
     type: "query" | "suggestion";
+    image?: string;
+    title?: string;
 }; 
