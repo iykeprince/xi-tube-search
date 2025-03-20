@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function SearchInput({ setLoading, onSearch }: { setLoading: (loading: boolean) => void; onSearch: (query: string) => void }) {
+export default function SearchInput({ setLoading, loading, onSearch }: { loading: boolean; setLoading: (loading: boolean) => void; onSearch: (query: string) => void }) {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearch = () => {
@@ -10,6 +10,7 @@ export default function SearchInput({ setLoading, onSearch }: { setLoading: (loa
             setLoading(true);
             // Add your search logic here
             onSearch(searchQuery);
+            setSearchQuery("")
         }
     };
 
@@ -22,7 +23,7 @@ export default function SearchInput({ setLoading, onSearch }: { setLoading: (loa
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button className="bg-blue-500 text-white p-2 rounded-lg" onClick={handleSearch}>
+            <button disabled={loading} className="bg-blue-500 text-white p-2 rounded-lg" onClick={handleSearch}>
                 Search
             </button>
         </div>

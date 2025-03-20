@@ -3,6 +3,8 @@ export type Suggestion = {
     title: string;
     image: string;
     description: string;
+    link: string;
+    videoId: string;
 };
 
 export type Chat = {
@@ -10,4 +12,6 @@ export type Chat = {
     message: string;
     isAI: boolean;
     type: "query" | "suggestion";
+    image?: string;
+    title?: string;
 }; 

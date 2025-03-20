@@ -1,6 +1,7 @@
 import AIBubble from "./AIBubble";
 import ChatBubble from "./ChatBubble";
 import { Chat } from '../types/types';
+import SelectedSuggestion from "./SelectedSuggestion";
 
 export default function ChatList({
     chat,
@@ -10,8 +11,8 @@ export default function ChatList({
     return (
         <div className="mb-4">
             {chat.type === "query" && !chat.isAI && <ChatBubble chat={chat} />}
-            {/* <SelectedSuggestion selectedSuggestion={selectedSuggestion} /> */}
-            {chat.isAI && chat.type === "query" && (
+            {chat.type === "suggestion" && chat.isAI && <SelectedSuggestion chat={chat} />}
+            {chat.type === "query" && chat.isAI && (
                 <>
 
                     <AIBubble chat={chat} />
