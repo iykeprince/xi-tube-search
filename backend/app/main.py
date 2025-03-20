@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .api.v1.endpoints import video
 from dotenv import load_dotenv
 
@@ -22,3 +23,8 @@ app.add_middleware(
 )
 
 app.include_router(video.router, prefix="/api/v1", tags=["video"])
+
+@app.get("/")
+async def root():
+    """Health check endpoint"""
+    return {"status": "online", "message": "YouTube Video Analyzer API is running"}

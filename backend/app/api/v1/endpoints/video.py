@@ -27,7 +27,7 @@ async def get_transcript(video_id: str):
     """
     Extract or generate a transcript for a given video.
     """
-    transcript = transcript_extraction.get_video_transcript()
+    transcript = transcript_extraction.get_video_transcript(video_id)
     if not transcript:
         raise HTTPException(status_code=404, detail="No transcipt found.")
     return {"transcipt": transcript}
