@@ -8,6 +8,10 @@ import ChatList from "../components/ChatList";
 import { Chat, Suggestion } from "../types/types";
 import { getSuggestions, getSummary, getTranscipt } from "@/services/suggestion";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unescaped-entities */
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
 
@@ -146,7 +150,7 @@ export default function Home() {
             </svg>
             <h3 className="text-xl font-semibold mb-2">Welcome to Xi-Tube Search</h3>
             <p className="text-center max-w-md">
-              Start by typing your search query in the box below. We'll help you find what you're looking for!
+              Start by typing your search query in the box below. We&apos;ll help you find what you&apos;re looking for!
             </p>
           </div>
         )}

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Chat } from "../types/types";
 
 export default function SelectedSuggestion({ chat }: { chat: Chat }) {
