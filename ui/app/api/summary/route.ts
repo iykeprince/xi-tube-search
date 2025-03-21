@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ videoId }),
+      body: JSON.stringify({ "video_id": videoId }),
     })
 
     if (!response.ok) {

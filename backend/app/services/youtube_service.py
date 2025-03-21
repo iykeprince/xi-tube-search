@@ -5,6 +5,7 @@ from urllib.parse import parse_qs, urlparse
 
 import aiohttp
 from youtube_transcript_api import YouTubeTranscriptApi, _errors
+from youtube_transcript_api.proxies import WebshareProxyConfig
 
 from ..schemas.response_models import VideoSearchResult
 
@@ -121,8 +122,19 @@ class YouTubeService:
     async def get_transcript(self, video_id: str) -> Optional[str]:
         """Get the transcript of a YouTube video."""
         try:
+            # Set up proxy if needed
+            # http://hqztM9Xe1ENPlLIU:6vqc3PdMLkFFtfGe@geo.g-w.info:10080/
+            # Username: zmoibvax
+            # password: qy7zb2rii73e
+            proxy = WebshareProxyConfig(
+                # username=os.getenv("WEBSHARE_USERNAME"),
+                proxy_username="zmoibvax",
+                proxy_password="qy7zb2rii73e",
+            )
             # Try to get the transcript
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+            transcript_list = YouTubeTranscriptApi.get_transcript(
+                video_id, proxies=proxy
+            )
 
             # Combine all transcript parts
             transcript_text = " ".join([part["text"] for part in transcript_list])
