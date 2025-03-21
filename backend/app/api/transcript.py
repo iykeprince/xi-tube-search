@@ -26,7 +26,6 @@ async def get_transcript(
             raise HTTPException(
                 status_code=404, detail="Transcript not available for this video."
             )
-
         return TranscriptResponse(video_id=request.video_id, transcript=transcript)
     except Exception as e:
         raise HTTPException(
