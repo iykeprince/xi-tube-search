@@ -1,6 +1,9 @@
 fastapi
 dotenv
-serpapi
-google-api-python-client
+pydantic
 youtube_transcript_api
 uvicorn
+langchain
+langchain_groq
+gtts
+aiohttp
