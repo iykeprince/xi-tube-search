@@ -33,7 +33,8 @@ export default function TextToSpeech({ text, videoId }: TextToSpeechProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text: text.length > 5000 ? text.substring(0, 5000) + "..." : text,
+          // text: text.length > 5000 ? text.substring(0, 5000) + "..." : text,
+          text,
           videoId,
         }),
       })
