@@ -11,7 +11,7 @@ interface VideoPageProps {
 
 export async function generateMetadata({ params }: VideoPageProps): Promise<Metadata> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/api/video/${params.id}`, {
+    const response = await fetch(`/api/video/${params.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
 import { Play, Pause, Volume2, Download, Loader2 } from "lucide-react"
+import { SpeechComponent } from "@/app/page"
 
 interface TextToSpeechProps {
   text: string
@@ -123,7 +124,9 @@ export default function TextToSpeech({ text, videoId }: TextToSpeechProps) {
 
         <p className="text-slate-600 dark:text-slate-400 mb-6">Listen to the AI-generated summary of this video</p>
 
-        <div className="flex flex-col space-y-6">
+        <SpeechComponent text={text} />
+
+        {/* <div className="flex flex-col space-y-6">
           <div className="flex justify-center">
             <Button size="lg" onClick={generateSpeech} disabled={isGenerating} className="rounded-full h-16 w-16 p-0">
               {isGenerating ? (
@@ -148,7 +151,7 @@ export default function TextToSpeech({ text, videoId }: TextToSpeechProps) {
               Download Audio
             </Button>
           )}
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   )

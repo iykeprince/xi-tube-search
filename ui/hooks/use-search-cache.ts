@@ -103,7 +103,8 @@ export function useSearchCache(cacheExpiryTime = 1000 * 60 * 30) {
 
         // Otherwise, fetch from API
         console.log("Fetching fresh search results for:", query)
-        const response = await fetch("/api/search", {
+        const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+        const response = await fetch(`${API_BASE}/api/search`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
